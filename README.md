@@ -1,16 +1,155 @@
-# Barbozajunior.github.io
-Meu portifólio
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria Rita, aceita sair comigo?</title>
 
-dfagsg
-a
-sdf
-asdf
-asd
-f
-asdf
-a
-sd
-f
-a
-sdfa
+    <!-- Tailwind CSS para utilitários de layout e estilo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- JS Confetti para efeito sutil ao clicar em Sim -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <!-- Fonte Inter para visual moderno, limpo e legível -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            /* Adicionado plano de fundo com imagem e sobreposição escura */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('miranha\ romântico.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Cor oficial Marvel Red e tom Dourado sutil */
+        .bg-marvel-red {
+            background-color: #E62429;
+        }
+        .bg-marvel-red:hover {
+            background-color: #C81A1F;
+        }
+        .border-marvel-red {
+            border-color: #E62429;
+        }
+        .text-marvel-gold {
+            color: #F8B319;
+        }
+
+        /* Transição suave para o botão fujão */
+        #btn-nao {
+            transition: left 0.15s ease-out, top 0.15s ease-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 select-none overflow-hidden text-center">
+
+    <main class="max-w-xl w-full my-auto flex flex-col items-center justify-center relative z-10 bg-black/40 p-8 rounded-2xl backdrop-blur-sm border border-white/10 shadow-2xl">
+        
+        <!-- Badge sutil Marvel style -->
+        <span class="inline-block bg-marvel-red text-white text-xs font-extrabold tracking-widest px-3 py-1 rounded mb-6 uppercase shadow-lg">
+            Convite Especial
+        </span>
+
+        <!-- Título Limpo e Direto -->
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-12 drop-shadow-md">
+            Maria Rita, você aceita sair comigo?
+        </h1>
+
+        <div class="relative w-full min-h-[120px] flex items-center justify-center gap-6" id="button-area">
+            
+            <!-- Botão SIM - Marvel Red -->
+            <button id="btn-sim" class="bg-marvel-red hover:bg-[#c81a1f] active:scale-95 text-white font-bold py-3.5 px-10 rounded-lg text-lg shadow-lg shadow-red-900/30 transition-all duration-200 border-b-4 border-black/30">
+                SIM
+            </button>
+
+            <!-- Botão NÃO - Minimalista Fujão -->
+            <button id="btn-nao" class="bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-semibold py-3.5 px-8 rounded-lg text-lg border border-neutral-700 transition-all duration-150 absolute sm:relative">
+                Não
+            </button>
+
+        </div>
+    </main>
+
+    <div id="modal-sucesso" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl relative">
+            
+            <div class="w-12 h-12 bg-marvel-red/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-marvel-red/40">
+                <span class="text-marvel-gold text-2xl">✨</span>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mb-2">
+                Excelente escolha! 
+            </h2>
+            <p class="text-neutral-400 mb-6 text-base leading-relaxed">
+                A gente se fala pra acertar os detalhes 
+            </p>
+
+            <button onclick="reiniciar()" class="bg-marvel-red hover:bg-[#c81a1f] text-white font-semibold py-2.5 px-6 rounded-lg transition-all text-sm shadow-md w-full">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const jsConfetti = new JSConfetti();
+
+        const btnSim = document.getElementById('btn-sim');
+        const btnNao = document.getElementById('btn-nao');
+        const modalSucesso = document.getElementById('modal-sucesso');
+
+        // Função para movimentar o botão NÃO na tela
+        function moverBotaoNao() {
+            btnNao.style.position = 'fixed';
+            
+            const padding = 20;
+            const btnWidth = btnNao.offsetWidth;
+            const btnHeight = btnNao.offsetHeight;
+            
+            const maxW = window.innerWidth - btnWidth - padding;
+            const maxH = window.innerHeight - btnHeight - padding;
+            
+            const newX = Math.max(padding, Math.floor(Math.random() * maxW));
+            const newY = Math.max(padding, Math.floor(Math.random() * maxH));
+
+            btnNao.style.left = `${newX}px`;
+            btnNao.style.top = `${newY}px`;
+        }
+
+        // Eventos para esquivar o botão "Não"
+        btnNao.addEventListener('mouseenter', moverBotaoNao);
+        btnNao.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moverBotaoNao();
+        });
+        btnNao.addEventListener('click', (e) => {
+            e.preventDefault();
+            moverBotaoNao();
+        });
+
+        // Clique no botão SIM
+        btnSim.addEventListener('click', () => {
+            jsConfetti.addConfetti({
+                confettiColors: ['#E62429', '#F8B319', '#FFFFFF', '#121212'],
+                confettiRadius: 5,
+                confettiNumber: 60,
+            });
+
+            setTimeout(() => {
+                modalSucesso.classList.remove('hidden');
+            }, 250);
+        });
+
+        // Fechar modal
+        function reiniciar() {
+            modalSucesso.classList.add('hidden');
+            btnNao.style.position = 'relative';
+            btnNao.style.left = 'auto';
+            btnNao.style.top = 'auto';
+        }
+    </script>
+</body>
+</html>
